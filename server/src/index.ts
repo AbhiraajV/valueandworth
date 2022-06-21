@@ -14,6 +14,13 @@ import { connectToMongoDb } from "./utils/mongodb";
 import { verifyJWT } from "./utils/JWT";
 import Context from "./types/context";
 import { User } from "./schema/user.schema";
+import { weeklyCount } from "./ScheduledJobs";
+const schedule = require("node-schedule");
+
+schedule.scheduleJob("0 0 * * 0", () => {
+  console.log("Ran");
+  weeklyCount();
+});
 
 const serverFunction = async () => {
   const schema = await buildSchema({
@@ -28,6 +35,7 @@ const serverFunction = async () => {
     schema,
     context: (ctx: Context) => {
       const authToken = ctx.req.headers.authorization;
+      // console.log(authToken);
       if (authToken) {
         const user = verifyJWT(authToken.replace("Bearer ", "")) as User;
         ctx.user = user;

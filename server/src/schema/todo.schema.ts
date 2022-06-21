@@ -11,17 +11,17 @@ export default class TodoSchema {
   @Prop({ required: true })
   todoTitle: string;
 
-  //   @Field(() => String)
-  //   @Prop({ required: true })
-  //   _id: string;
+  @Field(() => String)
+  @Prop({ required: true })
+  tag: string;
 
   @Field(() => Boolean)
   @Prop({ required: true, default: false })
   isCompleted: boolean;
 
-  @Field(() => Date)
-  @Prop({ required: true, default: Date.now() })
-  Deadline: Date;
+  @Field(() => String)
+  @Prop({ required: true })
+  Deadline: string;
 }
 export const TodoModel = getModelForClass(TodoSchema);
 @InputType()
@@ -33,9 +33,13 @@ export class createTaskInput {
   @Prop({ required: true })
   todoTitle: string;
 
-  //   @Field(() => Date)
-  //   @Prop({ required: false })
-  //   Deadline: Date;
+  @Field(() => String)
+  @Prop({ required: true })
+  Deadline: string;
+
+  @Field(() => String)
+  @Prop({ required: true })
+  tag: string;
 }
 @InputType()
 export class InvertTodoStatusInput {

@@ -30,6 +30,10 @@ export class User {
   @Field(() => [TodoSchema])
   @Prop({ required: true, ref: () => TodoSchema, default: [] })
   todos: Ref<TodoSchema>[];
+
+  @Field(() => Boolean)
+  @Prop({ required: false, default: false })
+  isAdmin: boolean;
 }
 
 export const UserModel = getModelForClass(User);
